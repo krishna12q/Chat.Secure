@@ -59,10 +59,11 @@ form {
   align-items: flex-end; /* Aligns the input boxes perfectly on the right side */
 }
 
-p {
+a {
   color: #6B7280;
   margin: 10px 0; /* Clean, reliable vertical spacing instead of extreme line-heights */
   font-weight: 500;
+  text-decoration: none;
 }
 
 /* Subtle modern upgrade to standard inputs without altering structure */
@@ -100,4 +101,8 @@ button:hover {
 button:active {
   background-color: #0da270;
   transform: scale(0.98);
+}
+
+#secondary {
+  
 }
