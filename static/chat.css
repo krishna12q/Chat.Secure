@@ -1,0 +1,147 @@
+/* 1. Base Setup */
+@font-face {
+  font-family: 'Inter'; 
+  src: url('Outfit-VariableFont_wght.ttf') format('truetype');
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box; 
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Chat Layout Grid */
+body {
+  display: flex;              
+  flex-direction: column;      
+  height: 100vh;           
+  background-color: #FDFBF7;
+  overflow: hidden; /* Keeps window scrollbars from appearing */
+}
+
+/* 3. Top Header Bar */
+#header {
+  width: 100%;
+  background-color: #064E3B;
+  padding: 18px 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+#header p {
+  color: #FDFBF7;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+/* 4. Flexible Main Stage */
+#main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pins messages up, form down */
+  align-items: center;
+  padding: 25px 20px;
+  max-width: 800px; /* Perfectly centered container constraints */
+  width: 100%;
+  margin: 0 auto; 
+}
+
+/* 5. Scrollable Messages Box */
+#cont {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto; /* Adds a scrollbar ONLY if chat gets too long */
+  padding: 20px; 
+  border: 2px solid #064E3B;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+/* 6. Message Block Typography (The line-height fix!) */
+.message-block {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-block h6 {
+  color: #064E3B;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 3px; /* Clean, minimal gap */
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.message-block p {
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.3; /* Tight but perfectly legible row structure */
+}
+
+.your-message-block p {
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.3; /* Tight but perfectly legible row structure */
+  text-align: right;
+}
+
+.your-message-block h6 {
+  color: #064E3B;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 3px; /* Clean, minimal gap */
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-align: right;
+}
+
+/* 7. Chat Inputs Row */
+form {
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+  width: 100%;
+}
+
+input[type="text"] {
+  flex: 1;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  padding: 14px 16px;
+  outline: none;
+  font-size: 15px;
+  background-color: #FFFFFF;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+button {
+  width: 110px;
+  margin-left: 12px;   
+  background-color: #10B981;
+  color: #FDFBF7;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0da270;
+}
+
+button:active {
+  transform: scale(0.97);
+}

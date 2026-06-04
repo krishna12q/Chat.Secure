@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>SChat</title>
+</head>
+<body>
+    <h1>SChat</h1>
+    
+    <!-- FIXED: Removed the erroneous template brackets inside the raw action string -->
+    <form action="/createc" method="post">
+        <button type="submit">Create Chatroom</button>
+    </form>
+    
+    <form action="/joinc" method="post">
+        <button type="submit">Join A Chatroom</button>
+    </form>
+    
+    <p>Sign Up</p>
+    <p>Login</p>
+</body>
+</html>

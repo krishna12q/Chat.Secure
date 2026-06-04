@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
+    <title>SChat</title>
+</head>
+<body>
+
+<div id="header">
+    <p>Chatroom Name</p>
+</div>
+
+<div id="main-wrapper">
+    <div id="cont">
+        <div class="message-block">
+            <h6>Name</h6>
+            <p>Message</p>
+        </div>
+
+        <div class="message-block">
+            <h6>Name</h6>
+            <p>Message</p>
+        </div>
+
+        <div class="your-message-block">
+            <h6>Name</h6>
+            <p>Message</p>
+        </div>
+    </div>
+
+    <form>
+        <input type="text" placeholder="Type a message...">
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+</body>
+</html>
