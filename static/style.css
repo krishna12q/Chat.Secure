@@ -103,6 +103,11 @@ button:active {
   transform: scale(0.98);
 }
 
-#secondary {
-  
+#secondary button{
+  background-color: #FDFBF7;
+  color: #0da270;
+  /* margin-bottom: -15px; */
+  /* margin-top: 10px; */
+  font-size: 14px;
+  border: #0da270 2px solid;
 }
