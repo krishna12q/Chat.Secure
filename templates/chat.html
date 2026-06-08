@@ -9,32 +9,39 @@
 <body>
 
 <div id="header">
-    <p>Chatroom Name</p>
+    <p>{{groupname}}</p>
 </div>
 
 <div id="main-wrapper">
+
     <div id="cont">
-        <div class="message-block">
-            <h6>Name</h6>
-            <p>Message</p>
-        </div>
+    {% for msg in messages %}
 
-        <div class="message-block">
-            <h6>Name</h6>
-            <p>Message</p>
-        </div>
+    {% if msg[0] == username %}
+    <div class="your-message-block">
+        <h6>{{ msg[0] }}</h6>
+        <h5 style="color: gray;font-size: 8px;margin-top: -6px;">{{ msg[2] }}</h5>
+        <p>{{ msg[1] }}</p>
 
-        <div class="your-message-block">
-            <h6>Name</h6>
-            <p>Message</p>
-        </div>
+    </div>
+    {% else %}
+    <div class="message-block">
+        <h6>{{ msg[0] }}</h6>
+        <p>{{ msg[4] }}</p>
+        <p>{{ msg[1] }}</p>
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
     </div>
 
-    <form>
-        <input type="text" placeholder="Type a message...">
+    <form action="/sendmessage" method="post">
+        <input type="text" name="message" placeholder="Type a message...">
         <button type="submit">Send</button>
     </form>
 </div>
+
 
 </body>
 </html>
