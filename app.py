@@ -50,7 +50,7 @@ def chat():
     if "cgroup" not in session:
         return redirect(url_for("joincroom"))
 
-    db_conn = sqlite3.connect("db.db")
+    db_conn = sqlite3.connect("/data/db.db")
     cur = db_conn.cursor()
 
     cur.execute("""
