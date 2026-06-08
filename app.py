@@ -1,11 +1,11 @@
 from flask import Flask, request, redirect, url_for, render_template, flash,session
 from werkzeug.security import generate_password_hash , check_password_hash
 import sqlite3
-
+import os
 
 
 # 1. Database Initialization (Runs once when app starts)
-conn = sqlite3.connect('db.db')
+conn = sqlite3.connect('/data/db.db')
 curr = conn.cursor()
 curr.execute("""
 CREATE TABLE IF NOT EXISTS users (
@@ -38,7 +38,7 @@ conn.commit()
 conn.close() # Close initial connection
 
 app = Flask(__name__)
-app.secret_key = 'bahuthitreshatarnaksillaeatingmywekzuegsandwhichmadebyquandaledingleinddyslair'
+app.secret_key = os.environ["SECRET_KEY"]
 
 @app.route("/chat")
 def chat():
@@ -73,7 +73,7 @@ def home():
 
 @app.route("/sendmessage", methods=['POST','GET'])
 def send():
-    db_conn = sqlite3.connect('db.db')
+    db_conn = sqlite3.connect('/data/db.db')
     cur = db_conn.cursor()
 
     message = request.form.get('message')
@@ -100,7 +100,7 @@ def func():
     groupname = request.form.get('groupname')
     secretpassword = request.form.get('pw')
 
-    db_conn = sqlite3.connect('db.db')
+    db_conn = sqlite3.connect('/data/db.db')
     cur = db_conn.cursor()
     
     cur.execute("SELECT * FROM groups WHERE name = ?", (groupname,))
@@ -147,7 +147,7 @@ def joinchatroom():
         print(request.method)
         print(request.form)
 
-        db_conn = sqlite3.connect('db.db')
+        db_conn = sqlite3.connect('/data/db.db')
         cur = db_conn.cursor()
 
         cur.execute('''
@@ -156,6 +156,9 @@ def joinchatroom():
 
         groupfound = cur.fetchone()
 
+        if not groupfound:
+            return "Group not found"
+        
         db_conn.close()
 
         if groupfound[1] == groupname:
@@ -163,9 +166,9 @@ def joinchatroom():
                 session['cgroup'] = groupfound[1]
                 return redirect(url_for('chat'))
             else:
-                return "Group Exsissts But Wrong Password"
+                return "The Group Exsists But The Password You Have Entered Is Wrong"
         else:
-            return "No Group FOund"
+            return "No Group Found"
 
     #return render_template("joinchat.html")
     
@@ -192,7 +195,7 @@ def register_user():
     pw = generate_password_hash(plaintext_pw)
 
     # Open a fresh connection for this request
-    db_conn = sqlite3.connect('db.db')
+    db_conn = sqlite3.connect('/data/db.db')
     cur = db_conn.cursor()
 
     cur.execute("SELECT * FROM users WHERE username = ?", (username,))
@@ -217,7 +220,7 @@ def loginacc():
 @app.route("/clogin", methods=['POST'])
 def login():
 
-    db_conn = sqlite3.connect('db.db')
+    db_conn = sqlite3.connect('/data/db.db')
     cur = db_conn.cursor()
 
     uname = request.form.get('username')
