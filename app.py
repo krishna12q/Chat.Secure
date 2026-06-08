@@ -40,6 +40,10 @@ conn.close() # Close initial connection
 app = Flask(__name__)
 app.secret_key = os.environ["SECRET_KEY"]
 
+@app.route("/")
+def index():
+    return redirect(url_for("home"))
+
 @app.route("/chat")
 def chat():
 
