@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, render_template, flash,session
+from flask import Flask, request, redirect, url_for, render_template, jsonify,session
 from werkzeug.security import generate_password_hash , check_password_hash
 import sqlite3
 import os
@@ -71,6 +71,29 @@ def chat():
         username=session["username"]
     )
 
+@app.route("/getmessages")
+def getmessages():
+
+    if "cgroup" not in session:
+        return jsonify([])
+
+    db_conn = sqlite3.connect("/data/db.db")
+    cur = db_conn.cursor()
+
+    cur.execute("""
+        SELECT sender, contents, created_at
+        FROM messages
+        WHERE group_name = ?
+        ORDER BY id ASC
+    """, (session["cgroup"],))
+
+    messages = cur.fetchall()
+
+    db_conn.close()
+
+    return jsonify(messages)
+
+
 @app.route("/home")
 def home():
     return render_template("home.html")
@@ -82,7 +105,7 @@ def send():
 
     message = request.form.get('message')
 
-    if message != "" or " " or None:
+    if message and message.strip():
         cur.execute("INSERT INTO messages (sender,contents,group_name) VALUES (?,?,?)",(session['username'],message,session['cgroup'],))
 
     db_conn.commit()

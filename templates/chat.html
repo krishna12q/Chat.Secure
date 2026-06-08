@@ -1,50 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='fav.png') }}">
-    <title>SChat</title>
-</head>
-<body>
+<script>
 
-<div id="header">
-    <p>{{groupname}}</p>
-</div>
+async function loadMessages() {
 
-<div id="main-wrapper">
+    const response = await fetch("/getmessages");
+    const messages = await response.json();
 
-    <div id="cont">
-    {% for msg in messages %}
+    let html = "";
 
-    {% if msg[0] == username %}
-    <div class="your-message-block">
-        <h6>{{ msg[0] }}</h6>
-        <h5 style="color: gray;font-size: 8px;margin-top: -6px;">{{ msg[2] }}</h5>
-        <p>{{ msg[1] }}</p>
+    messages.forEach(msg => {
 
-    </div>
-{% else %}
-<div class="message-block">
-    <h6>{{ msg[0] }}</h6>
-    <h5 style="color: gray;font-size: 8px;margin-top: -6px;">
-        {{ msg[2] }}
-    </h5>
-    <p>{{ msg[1] }}</p>
-</div>
-{% endif %}
+        if (msg[0] === "{{ username }}") {
 
-    {% endfor %}
+            html += `
+            <div class="your-message-block">
+                <h6>${msg[0]}</h6>
+                <h5 style="color: gray;font-size: 8px;margin-top: -6px;">
+                    ${msg[2]}
+                </h5>
+                <p>${msg[1]}</p>
+            </div>
+            `;
 
-    </div>
+        } else {
 
-    <form action="/sendmessage" method="post">
-        <input type="text" name="message" placeholder="Type a message...">
-        <button type="submit">Send</button>
-    </form>
-</div>
+            html += `
+            <div class="message-block">
+                <h6>${msg[0]}</h6>
+                <h5 style="color: gray;font-size: 8px;margin-top: -6px;">
+                    ${msg[2]}
+                </h5>
+                <p>${msg[1]}</p>
+            </div>
+            `;
 
+        }
+    });
 
-</body>
-</html>
+    const cont = document.getElementById("cont");
+
+    const wasNearBottom =
+        cont.scrollHeight - cont.scrollTop - cont.clientHeight < 100;
+
+    cont.innerHTML = html;
+
+    if (wasNearBottom) {
+        cont.scrollTop = cont.scrollHeight;
+    }
+}
+
+loadMessages();
+
+setInterval(loadMessages, 2000);
+
+</script>
