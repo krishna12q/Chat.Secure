@@ -25,13 +25,15 @@
         <p>{{ msg[1] }}</p>
 
     </div>
-    {% else %}
-    <div class="message-block">
-        <h6>{{ msg[0] }}</h6>
-        <h5 style="color: gray;font-size: 8px;margin-top: -6px;">{{ msg[2] }}</h5>
-        <p>{{ msg[4] }}</p>
-    </div>
-    {% endif %}
+{% else %}
+<div class="message-block">
+    <h6>{{ msg[0] }}</h6>
+    <h5 style="color: gray;font-size: 8px;margin-top: -6px;">
+        {{ msg[2] }}
+    </h5>
+    <p>{{ msg[1] }}</p>
+</div>
+{% endif %}
 
     {% endfor %}
 
