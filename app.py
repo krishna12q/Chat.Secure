@@ -82,7 +82,8 @@ def send():
 
     message = request.form.get('message')
 
-    cur.execute("INSERT INTO messages (sender,contents,group_name) VALUES (?,?,?)",(session['username'],message,session['cgroup'],))
+    if message != "" or " " or None:
+        cur.execute("INSERT INTO messages (sender,contents,group_name) VALUES (?,?,?)",(session['username'],message,session['cgroup'],))
 
     db_conn.commit()
     db_conn.close()
